@@ -1,0 +1,20 @@
+version: 0.2
+
+phases:
+  pre-build:
+    commands:
+      - $(aws ecr get-login --region eu-central-1 --no-include-email)
+      - $REPOSITORY_URI = 118332646967.dkr.ecr.eu-central-1.amazonaws.com/test
+  build:
+    commands:
+      - echo Build started..
+      - echo Building docker image..
+      - docker build -t $REPOSITORY_URI .
+      - docker tag $REPOSITORY_URI $REPOSITORY_URI:latest
+  post_build:
+    commands:
+      - echo Pushing docker image..
+      - docker push $REPOSITORY_URI:latest
+
+artifacts:
+  files: build.json
