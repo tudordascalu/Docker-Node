@@ -16,4 +16,4 @@ RUN npm install
 # Copy everything onto container
 COPY . .
 
-CMD ["node", "server.js"]
+ENTRYPOINT ["node", "server.js"]
